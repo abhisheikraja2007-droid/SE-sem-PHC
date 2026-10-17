@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHC Monitoring & Management System | National Health Mission</title>
+  <meta name="description" content="Primary Health Centre (PHC) Integrated Monitoring System: Patient visit tracking, medicine inventory stock alerts, staff duty toggler, and national health program categorization.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- ============================================================== -->
+  <!-- TOP GOVERNMENT & FACILITY HEADER                               -->
+  <!-- ============================================================== -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand & Facility Identity -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white font-bold shadow-md">
+            <i data-lucide="cross" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-base sm:text-lg font-bold tracking-tight text-white">PHC Ramapuram Health Complex</h1>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-teal-900/80 text-teal-300 border border-teal-700/60 font-mono">
+                PHC-TN-402
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">National Health Mission • Primary Healthcare Monitoring & Management System</p>
+          </div>
+        </div>
+
+        <!-- Shift Status & Action Controls -->
+        <div class="flex items-center space-x-4">
+          <!-- Live Clock & Status Badge -->
+          <div class="hidden md:flex flex-col items-end text-xs">
+            <span id="live-time" class="font-mono text-slate-300 font-medium">18:30:00 IST</span>
+            <span class="text-teal-400 flex items-center gap-1 font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="header-shift-badge">Facility Online • 24x7 Active</span>
+            </span>
+          </div>
+
+          <!-- Phase 5: Export Daily PHC Report Button -->
+          <button onclick="App.exportDailyReport()" id="btn-export-report" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 hover:text-white border border-teal-500/40 text-xs sm:text-sm font-bold transition shadow-sm hover:shadow-md cursor-pointer">
+            <i data-lucide="printer" class="w-4 h-4 text-teal-400"></i>
+            <span>Export Daily PHC Report</span>
+          </button>
+
+          <!-- Component 5 Trigger: Modal Form to Register New Patient Visits -->
+          <button onclick="App.openNewVisitModal()" id="btn-register-patient" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs sm:text-sm font-bold transition shadow-md hover:shadow-teal-500/25">
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <span>Register New Patient Visit</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick In-Page Section Anchor Navigation -->
+    <div class="bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex space-x-2 sm:space-x-4 overflow-x-auto py-2 text-xs font-bold text-slate-600">
+          <a href="#section-kpis" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-50 text-teal-800 border border-teal-200">
+            <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
+            <span>1. Live KPIs</span>
+          </a>
+          <a href="#section-queue" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">
+            <i data-lucide="users" class="w-3.5 h-3.5"></i>
+            <span>2. Patient Queue (One-Click Status)</span>
+          </a>
+          <a href="#section-inventory" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">
+            <i data-lucide="pill" class="w-3.5 h-3.5"></i>
+            <span>3. Medicine Inventory (+50/-10)</span>
+          </a>
+          <a href="#section-staff" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">
+            <i data-lucide="calendar-check" class="w-3.5 h-3.5"></i>
+            <span>4. Staff Duty Status Toggler</span>
+          </a>
+          <a href="#section-programs" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">
+            <i data-lucide="stethoscope" class="w-3.5 h-3.5"></i>
+            <span>5. Health Programs (4 Pillars)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CRITICAL ALERT TICKER BANNER -->
+  <div id="urgent-alert-banner" class="bg-gradient-to-r from-amber-500 via-rose-500 to-amber-600 text-white text-xs sm:text-sm py-2 px-4 shadow-sm hidden">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2 overflow-hidden">
+        <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 animate-bounce"></i>
+        <span class="font-bold">CRITICAL HEALTHCARE ALERT:</span>
+        <span id="urgent-alert-text" class="truncate">Checking facility triggers...</span>
+      </div>
+      <a href="#section-inventory" class="underline font-semibold hover:text-amber-100 shrink-0 ml-4">
+        Review Stock Alerts &rarr;
+      </a>
+    </div>
+  </div>
+
+  <!-- MAIN INTEGRATED DASHBOARD CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+    <!-- ============================================================== -->
+    <!-- 1) FOUR LIVE KPI SUMMARY CARDS                                 -->
+    <!-- (Total Visits, Low Stock Alerts, Active Staff, Maternal & Child) -->
+    <!-- ============================================================== -->
+    <section id="section-kpis" class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+          <i data-lucide="activity" class="w-4 h-4 text-teal-600"></i>
+          <span>Live Facility Key Performance Indicators</span>
+        </h2>
+        <span class="text-xs text-slate-500">Auto-synchronized via Express REST API</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="kpi-cards-grid">
+        <!-- Card 1: Total Visits -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs hover-lift transition">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Total Visits</span>
+            <div class="w-9 h-9 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-extrabold text-slate-900 tracking-tight" id="kpi-total-visits">--</div>
+          <div class="flex items-center justify-between text-xs text-slate-500 mt-2">
+            <span>Today's registered arrivals</span>
+            <span class="text-teal-600 font-semibold flex items-center gap-1">Live <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span></span>
+          </div>
+        </div>
+
+        <!-- Card 2: Low Stock Alerts -->
+        <div class="bg-white p-5 rounded-2xl border border-amber-200/90 bg-amber-50/20 shadow-xs hover-lift transition">
+          <div class="flex items-center justify-between text-amber-700 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider">Low Stock Alerts</span>
+            <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+              <i data-lucide="package-alert" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-extrabold text-amber-600 tracking-tight" id="kpi-low-stock-alerts">--</div>
+          <div class="flex items-center justify-between text-xs text-amber-700/80 mt-2">
+            <span>&le; Reorder threshold / Expiring</span>
+            <span class="text-amber-800 font-bold text-[11px] bg-amber-100 px-2 py-0.5 rounded-full">Requires Attention</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Active Staff -->
+        <div class="bg-white p-5 rounded-2xl border border-emerald-200/90 bg-emerald-50/20 shadow-xs hover-lift transition">
+          <div class="flex items-center justify-between text-emerald-700 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider">Active Staff</span>
+            <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="user-check" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-extrabold text-emerald-600 tracking-tight" id="kpi-active-staff">--</div>
+          <div class="flex items-center justify-between text-xs text-emerald-700/80 mt-2">
+            <span>Currently On Duty</span>
+            <span class="text-emerald-700 font-bold text-[11px] bg-emerald-100 px-2 py-0.5 rounded-full">24x7 Shift Coverage</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Maternal & Child Visits -->
+        <div class="bg-white p-5 rounded-2xl border border-pink-200/90 bg-pink-50/20 shadow-xs hover-lift transition">
+          <div class="flex items-center justify-between text-pink-700 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider">Maternal & Child Visits</span>
+            <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
+              <i data-lucide="baby" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="text-3xl font-extrabold text-pink-600 tracking-tight" id="kpi-mch-visits">--</div>
+          <div class="flex items-center justify-between text-xs text-pink-700/80 mt-2">
+            <span>ANC, PNC & Immunization</span>
+            <span class="text-pink-700 font-bold text-[11px] bg-pink-100 px-2 py-0.5 rounded-full">High-Priority</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- 2) FILTERABLE PATIENT QUEUE TABLE                              -->
+    <!-- (One-Click Status Progression: Waiting -> In Consultation -> Completed) -->
+    <!-- ============================================================== -->
+    <section id="section-queue" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="users" class="w-5 h-5 text-teal-600"></i>
+            <span>Patient Queue & Triage Progression</span>
+          </h2>
+          <p class="text-xs text-slate-500">Filter visits and advance patient status with a single click: <span class="font-bold text-blue-600">Waiting</span> &rarr; <span class="font-bold text-amber-600">In Consultation</span> &rarr; <span class="font-bold text-emerald-600">Completed</span></p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="queue-record-count" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">0 Patients</span>
+          <button onclick="App.openNewVisitModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>New Patient</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="flex flex-1 items-center gap-3 flex-wrap">
+          <div class="relative flex-1 min-w-[220px]">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+            <input type="text" id="visit-search" placeholder="Search by patient name, UHID, or symptoms..." class="w-full pl-9 pr-3 py-1.5 text-xs sm:text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500">
+          </div>
+          
+          <!-- Program Pillar Filter -->
+          <select id="visit-filter-program" class="text-xs sm:text-sm py-1.5 px-3 rounded-lg border border-slate-300 bg-white font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <option value="All">All Health Programs (4 Pillars)</option>
+            <option value="Outpatient">Outpatient Care (OPD)</option>
+            <option value="Maternal Care">Maternal & Child Care (MCH)</option>
+            <option value="Immunization">Immunization Program</option>
+            <option value="Disease Prevention">Disease Prevention & Surveillance</option>
+          </select>
+
+          <!-- Status Progression Filter -->
+          <select id="visit-filter-status" class="text-xs sm:text-sm py-1.5 px-3 rounded-lg border border-slate-300 bg-white font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <option value="All">All Triage Stages</option>
+            <option value="Waiting">1. Waiting (Checked In)</option>
+            <option value="In Consultation">2. In Consultation (With Doctor)</option>
+            <option value="Completed">3. Completed</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Main Filterable Queue Table -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-semibold text-[11px] border-b border-slate-200">
+              <tr>
+                <th class="px-4 py-3">Token & UHID</th>
+                <th class="px-4 py-3">Patient Profile</th>
+                <th class="px-4 py-3">Health Program</th>
+                <th class="px-4 py-3">Symptoms / Vitals</th>
+                <th class="px-4 py-3">Triage Stage</th>
+                <th class="px-4 py-3 text-right">One-Click Action</th>
+              </tr>
+            </thead>
+            <tbody id="visits-table-tbody" class="divide-y divide-slate-100">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- 3) MEDICINE INVENTORY PANEL                                    -->
+    <!-- (Visual Low-Stock Alerts & +50 / -10 Quick Stock Buttons)      -->
+    <!-- ============================================================== -->
+    <section id="section-inventory" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="pill" class="w-5 h-5 text-teal-600"></i>
+            <span>Medicine Inventory & Stock Alert Engine</span>
+          </h2>
+          <p class="text-xs text-slate-500">Real-time stock monitoring with visual alerts and instant <span class="font-bold text-emerald-600">+50</span> / <span class="font-bold text-rose-600">-10</span> unit adjustment buttons</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="App.openAddMedicineModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add / Restock Batch</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Inventory Status Filter Cards Bar -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <button onclick="App.filterMedicineStatus('All')" class="med-filter-card bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-left hover-lift active" data-status="All">
+          <span class="text-xs font-bold text-slate-500 uppercase">Total Catalog Items</span>
+          <div class="text-2xl font-bold text-slate-900 mt-1" id="inv-total-count">--</div>
+          <span class="text-[11px] text-teal-600 font-semibold mt-1 inline-block">All formulations</span>
+        </button>
+
+        <button onclick="App.filterMedicineStatus('Low Stock')" class="med-filter-card bg-amber-50/50 p-4 rounded-2xl border border-amber-300 shadow-xs text-left hover-lift" data-status="Low Stock">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-800 uppercase">Low Stock Alerts</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-200 text-amber-900 font-bold">&le; Min Level</span>
+          </div>
+          <div class="text-2xl font-bold text-amber-600 mt-1" id="inv-low-count">--</div>
+          <span class="text-[11px] text-amber-700 font-semibold mt-1 inline-block">Restock urgent</span>
+        </button>
+
+        <button onclick="App.filterMedicineStatus('Expiring Soon')" class="med-filter-card bg-purple-50/50 p-4 rounded-2xl border border-purple-300 shadow-xs text-left hover-lift" data-status="Expiring Soon">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-800 uppercase">Expiring Soon</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] bg-purple-200 text-purple-900 font-bold">&le; 60 Days</span>
+          </div>
+          <div class="text-2xl font-bold text-purple-600 mt-1" id="inv-expiring-count">--</div>
+          <span class="text-[11px] text-purple-700 font-semibold mt-1 inline-block">Expedite batch usage</span>
+        </button>
+
+        <button onclick="App.filterMedicineStatus('Out of Stock')" class="med-filter-card bg-rose-50/50 p-4 rounded-2xl border border-rose-300 shadow-xs text-left hover-lift" data-status="Out of Stock">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-rose-800 uppercase">Out of Stock</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] bg-rose-200 text-rose-900 font-bold">Qty: 0</span>
+          </div>
+          <div class="text-2xl font-bold text-rose-600 mt-1" id="inv-depleted-count">--</div>
+          <span class="text-[11px] text-rose-700 font-semibold mt-1 inline-block">Stockout danger</span>
+        </button>
+      </div>
+
+      <!-- Inventory Search & Category Filter -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="flex flex-1 items-center gap-3 flex-wrap">
+          <div class="relative flex-1 min-w-[200px]">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+            <input type="text" id="inventory-search" placeholder="Search drug name, code, or batch number..." class="w-full pl-9 pr-3 py-1.5 text-xs sm:text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500">
+          </div>
+          <select id="inventory-filter-category" class="text-xs sm:text-sm py-1.5 px-3 rounded-lg border border-slate-300 bg-white font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <option value="All">All Drug Categories</option>
+            <option value="Antibiotic">Antibiotics</option>
+            <option value="Analgesic">Analgesics</option>
+            <option value="Antipyretic">Antipyretics</option>
+            <option value="Vaccine">Vaccines</option>
+            <option value="IV Fluid">IV Fluids</option>
+            <option value="Chronic / NCD">Chronic / NCD Medications</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Medicine Inventory Table with Visual Alerts & +50 / -10 Quick Buttons -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-semibold text-[11px] border-b border-slate-200">
+              <tr>
+                <th class="px-4 py-3">Medicine Code & Name</th>
+                <th class="px-4 py-3">Category</th>
+                <th class="px-4 py-3">Batch & Expiry</th>
+                <th class="px-4 py-3">Current Stock</th>
+                <th class="px-4 py-3">Visual Alert Level</th>
+                <th class="px-4 py-3 text-right">Quick Stock Adjustment</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-tbody" class="divide-y divide-slate-100">
+              <!-- Rendered via JS with +50 and -10 buttons -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- 4) STAFF DUTY STATUS TOGGLER                                   -->
+    <!-- (Instant One-Click Duty Status Toggling)                      -->
+    <!-- ============================================================== -->
+    <section id="section-staff" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="calendar-check" class="w-5 h-5 text-teal-600"></i>
+            <span>Staff Duty Roster & Attendance Status Toggler</span>
+          </h2>
+          <p class="text-xs text-slate-500">Click provider toggle buttons to update duty state in real time: <span class="text-emerald-600 font-semibold">On Duty</span> &bull; <span class="text-slate-500 font-semibold">Off Duty</span> &bull; <span class="text-rose-600 font-semibold">Emergency Call</span></p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="date" id="roster-date-picker" class="text-xs font-semibold py-1.5 px-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white">
+          <button onclick="App.openAssignShiftModal()" class="py-1.5 px-3 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold transition shrink-0">
+            + Assign Shift
+          </button>
+        </div>
+      </div>
+
+      <!-- Staff Roster Cards Grid with Status Toggler Buttons -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="staff-roster-cards">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- 5) HEALTH PROGRAM CATEGORIZATION (4 PILLARS)                   -->
+    <!-- ============================================================== -->
+    <section id="section-programs" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="stethoscope" class="w-5 h-5 text-teal-600"></i>
+            <span>Health Program Categorization (4 National Pillars)</span>
+          </h2>
+          <p class="text-xs text-slate-500">Specialized clinical workflows, registries, and indicators for Outpatient, Maternal, Immunization & Disease Prevention</p>
+        </div>
+      </div>
+
+      <!-- Program Tabs -->
+      <div class="flex items-center space-x-2 border-b border-slate-200 pb-3">
+        <button onclick="App.switchProgramTab('Outpatient')" class="sub-tab active px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-teal-600 text-white" data-program="Outpatient">
+          Outpatient Care (OPD)
+        </button>
+        <button onclick="App.switchProgramTab('Maternal Care')" class="sub-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-200/70 text-slate-700 hover:bg-slate-300" data-program="Maternal Care">
+          Maternal & Child Healthcare
+        </button>
+        <button onclick="App.switchProgramTab('Immunization')" class="sub-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-200/70 text-slate-700 hover:bg-slate-300" data-program="Immunization">
+          Immunization Programs
+        </button>
+        <button onclick="App.switchProgramTab('Disease Prevention')" class="sub-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-slate-200/70 text-slate-700 hover:bg-slate-300" data-program="Disease Prevention">
+          Disease Prevention & Surveillance
+        </button>
+      </div>
+
+      <!-- Program Header Summary -->
+      <div id="program-header-container" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Program Case Registry Table -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="text-sm font-bold text-slate-800" id="program-table-title">Program Case Registry</h3>
+          <span class="text-xs text-slate-500 font-semibold" id="program-record-count">0 records</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-semibold text-[11px] border-b border-slate-200">
+              <tr>
+                <th class="px-4 py-3">Token & UHID</th>
+                <th class="px-4 py-3">Patient Profile</th>
+                <th class="px-4 py-3">Clinical Assessment</th>
+                <th class="px-4 py-3">Specialized Metadata</th>
+                <th class="px-4 py-3">Triage Stage</th>
+                <th class="px-4 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="program-visits-tbody" class="divide-y divide-slate-100">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- MODAL FORM TO REGISTER NEW PATIENT VISITS (Component 5)        -->
+  <!-- ============================================================== -->
+  <div id="modal-new-visit" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Register New Patient Visit</h3>
+          <p class="text-xs text-slate-500">Auto-generates queue token and appends to Waiting list</p>
+        </div>
+        <button onclick="App.closeModals()" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-new-visit" onsubmit="App.handleCreateVisit(event)" class="p-6 space-y-4">
+        <!-- Demographics -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Patient Full Name *</label>
+          <input type="text" name="patient_name" required placeholder="e.g. Ramesh Chandra Verma" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Age (Years) *</label>
+            <input type="number" name="patient_age" required min="0" max="120" placeholder="e.g. 34" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Gender *</label>
+            <select name="patient_gender" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Contact Phone</label>
+            <input type="text" name="patient_contact" placeholder="+91 94123 45678" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Village / Ward Address</label>
+            <input type="text" name="patient_address" placeholder="Sector 3, North Village" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+          </div>
+        </div>
+
+        <!-- Health Program Pillar Selection -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Health Program Pillar *</label>
+          <select name="program_category" id="modal-program-select" required onchange="App.toggleProgramFields(this.value)" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-teal-500 bg-teal-50/40 font-semibold text-teal-900 focus:ring-2 focus:ring-teal-500">
+            <option value="Outpatient">Outpatient Care (OPD)</option>
+            <option value="Maternal Care">Maternal & Child Healthcare (ANC/PNC)</option>
+            <option value="Immunization">Immunization Program (Vaccination)</option>
+            <option value="Disease Prevention">Disease Prevention & Surveillance</option>
+          </select>
+        </div>
+
+        <!-- Symptoms -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Presenting Symptoms / Reason for Visit *</label>
+          <textarea name="symptoms" required rows="2" placeholder="e.g. Acute fever, headache, bodyache since 2 days" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500"></textarea>
+        </div>
+
+        <!-- Vitals -->
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <label class="block text-xs font-bold text-slate-700 mb-2">Initial Triage Vitals</label>
+          <div class="grid grid-cols-4 gap-2 text-xs">
+            <div>
+              <span class="text-slate-500 text-[10px]">BP (mmHg)</span>
+              <input type="text" name="bp" placeholder="120/80" class="w-full px-2 py-1.5 rounded border border-slate-300">
+            </div>
+            <div>
+              <span class="text-slate-500 text-[10px]">Pulse (bpm)</span>
+              <input type="number" name="pulse" placeholder="78" class="w-full px-2 py-1.5 rounded border border-slate-300">
+            </div>
+            <div>
+              <span class="text-slate-500 text-[10px]">Temp (&deg;F)</span>
+              <input type="number" step="0.1" name="temp" placeholder="98.6" class="w-full px-2 py-1.5 rounded border border-slate-300">
+            </div>
+            <div>
+              <span class="text-slate-500 text-[10px]">SpO2 (%)</span>
+              <input type="number" name="spo2" placeholder="99" class="w-full px-2 py-1.5 rounded border border-slate-300">
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Program-Specific Fields -->
+        <div id="dynamic-program-fields" class="p-3 bg-teal-50/50 rounded-xl border border-teal-200 hidden">
+          <!-- Populated based on selected pillar -->
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="App.closeModals()" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-800">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs sm:text-sm font-semibold shadow">
+            Register Visit & Add to Queue
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL: ADD / RESTOCK MEDICINE BATCH -->
+  <div id="modal-add-medicine" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Add or Restock Medicine Batch</h3>
+          <p class="text-xs text-slate-500">Replenish pharmacy inventory & recalculate alert levels</p>
+        </div>
+        <button onclick="App.closeModals()" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-add-medicine" onsubmit="App.handleAddMedicine(event)" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Medicine Name & Strength *</label>
+          <input type="text" name="name" required placeholder="e.g. Ciprofloxacin 500mg" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Category *</label>
+            <select name="category" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+              <option value="Antibiotic">Antibiotic</option>
+              <option value="Analgesic">Analgesic</option>
+              <option value="Antipyretic">Antipyretic</option>
+              <option value="Vaccine">Vaccine</option>
+              <option value="IV Fluid">IV Fluid</option>
+              <option value="Chronic / NCD">Chronic / NCD</option>
+              <option value="Antihistamine">Antihistamine</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Batch Number *</label>
+            <input type="text" name="batch_number" required placeholder="BATCH-CIP-202" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Quantity *</label>
+            <input type="number" name="quantity" required min="1" placeholder="100" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Reorder Level *</label>
+            <input type="number" name="min_threshold" required min="1" value="25" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-300">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Unit *</label>
+            <select name="unit" class="w-full text-xs px-2 py-2 rounded-lg border border-slate-300">
+              <option value="Tablets">Tablets</option>
+              <option value="Capsules">Capsules</option>
+              <option value="Vials">Vials</option>
+              <option value="Bottles">Bottles</option>
+              <option value="Sachets">Sachets</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Expiry Date *</label>
+          <input type="date" name="expiry_date" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500">
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="App.closeModals()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow">
+            Save Stock Batch
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL: ASSIGN STAFF SHIFT -->
+  <div id="modal-assign-shift" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100">
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Assign Staff Shift</h3>
+          <p class="text-xs text-slate-500">Schedule personnel slot on 24x7 roster</p>
+        </div>
+        <button onclick="App.closeModals()" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-assign-shift" onsubmit="App.handleAssignShift(event)" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Staff Member *</label>
+          <select name="staff_id" id="shift-staff-select" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Shift Date *</label>
+            <input type="date" name="shift_date" id="shift-date-input" required class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Duty Status *</label>
+            <select name="duty_status" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300">
+              <option value="On Duty">On Duty</option>
+              <option value="Emergency Call">Emergency Call</option>
+              <option value="Off Duty">Off Duty</option>
+              <option value="On Leave">On Leave</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Shift Timing *</label>
+          <select name="shift_type" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300">
+            <option value="Morning (08:00 - 14:00)">Morning (08:00 - 14:00)</option>
+            <option value="Evening (14:00 - 20:00)">Evening (14:00 - 20:00)</option>
+            <option value="Night (20:00 - 08:00)">Night (20:00 - 08:00)</option>
+            <option value="Emergency On-Call">Emergency On-Call</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Station Notes</label>
+          <input type="text" name="notes" placeholder="e.g. In-charge of OPD Room 2" class="w-full text-xs sm:text-sm px-3 py-2 rounded-lg border border-slate-300">
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button type="button" onclick="App.closeModals()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow">
+            Assign Shift
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- PHASE 5: PRINTABLE DAILY PHC REPORT MODAL / EXPORT VIEW       -->
+  <!-- ============================================================== -->
+  <div id="printable-report-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-6 z-50 hidden overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-4xl w-full shadow-2xl border border-slate-200 overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      
+      <!-- Modal Action Bar (Hidden during window.print()) -->
+      <div class="px-6 py-3.5 bg-slate-900 text-white flex items-center justify-between no-print border-b border-slate-800 shrink-0">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold">Daily PHC Summary & Monitoring Report</h3>
+            <p class="text-[11px] text-slate-400">Official Directorate of Public Health & Family Welfare Format</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition shadow cursor-pointer">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Print / Save as PDF</span>
+          </button>
+          <button onclick="App.closeModals()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer">
+            Close
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Report Document Body -->
+      <div id="printable-report-content" class="p-6 sm:p-10 bg-white text-slate-900 space-y-6 overflow-y-auto">
+        <!-- Injected dynamically by App.exportDailyReport() -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- Application Logic -->
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

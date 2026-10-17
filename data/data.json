@@ -1,0 +1,804 @@
+{
+  "facility": "PHC Ramapuram Health Complex (PHC-TN-402)",
+  "last_persisted": "2026-10-17T14:45:41.178Z",
+  "patients": [
+    {
+      "id": 1,
+      "uhid": "PHC-2026-001",
+      "full_name": "Ramesh Chandra Verma",
+      "age": 48,
+      "gender": "Male",
+      "contact": "+91 94123 45678",
+      "address": "House 42, North Village, Sector 3",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 2,
+      "uhid": "PHC-2026-002",
+      "full_name": "Kavitha Murugan",
+      "age": 26,
+      "gender": "Female",
+      "contact": "+91 94123 45679",
+      "address": "Plot 12, Lakshmi Nagar, Ward 4",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 3,
+      "uhid": "PHC-2026-003",
+      "full_name": "Baby Aarav (c/o Deepa)",
+      "age": 1,
+      "gender": "Male",
+      "contact": "+91 94123 45680",
+      "address": "Ganga Colony, Rural Block A",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 4,
+      "uhid": "PHC-2026-004",
+      "full_name": "Suresh Babu",
+      "age": 35,
+      "gender": "Male",
+      "contact": "+91 94123 45681",
+      "address": "Near Old Panchayat Office, Ward 2",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 5,
+      "uhid": "PHC-2026-005",
+      "full_name": "Meera Rajput",
+      "age": 23,
+      "gender": "Female",
+      "contact": "+91 94123 45682",
+      "address": "Riverbank Tola, Sector 1",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 6,
+      "uhid": "PHC-2026-006",
+      "full_name": "Harish Patel",
+      "age": 62,
+      "gender": "Male",
+      "contact": "+91 94123 45683",
+      "address": "Farmstead 8B, West Outskirts",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 7,
+      "uhid": "PHC-2026-007",
+      "full_name": "Baby Ananya (c/o Pooja)",
+      "age": 0,
+      "gender": "Female",
+      "contact": "+91 94123 45684",
+      "address": "Main Street, Gram Panchayat Ward 5",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 8,
+      "uhid": "PHC-2026-008",
+      "full_name": "Dinesh Gowda",
+      "age": 29,
+      "gender": "Male",
+      "contact": "+91 94123 45685",
+      "address": "Camp Road, Labor Settlement",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 9,
+      "uhid": "PHC-2026-009",
+      "full_name": "Savithri Bai",
+      "age": 55,
+      "gender": "Female",
+      "contact": "+91 94123 45686",
+      "address": "House 19, Weaver Colony",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 10,
+      "uhid": "PHC-2026-010",
+      "full_name": "Sunil Yadav",
+      "age": 31,
+      "gender": "Male",
+      "contact": "+91 94123 45687",
+      "address": "Bazaar Street, Shop 4B",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 11,
+      "uhid": "PHC-2026-011",
+      "full_name": "Pooja Sharma",
+      "age": 27,
+      "gender": "Female",
+      "contact": "+91 98765 00001",
+      "address": "Sector 4, North Village",
+      "created_at": "2026-10-17 14:24:28"
+    },
+    {
+      "id": 12,
+      "uhid": "PHC-2026-012",
+      "full_name": "Sunita Mehra",
+      "age": 29,
+      "gender": "Female",
+      "contact": "N/A",
+      "address": "Local Village",
+      "created_at": "2026-10-17 14:29:28"
+    }
+  ],
+  "visits": [
+    {
+      "id": 1,
+      "patient_id": 1,
+      "token_number": 1,
+      "visit_date": "2026-10-17",
+      "program_category": "Outpatient",
+      "triage_status": "Completed",
+      "symptoms": "High fever, body ache, dry cough for 3 days",
+      "bp": "124/82",
+      "pulse": 88,
+      "temp": 101.4,
+      "spo2": 98,
+      "diagnosis": "Acute Upper Respiratory Tract Viral Infection",
+      "doctor_notes": "Prescribed antipyretic and oral hydration. Rest advised for 3 days.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 2,
+      "patient_id": 2,
+      "token_number": 2,
+      "visit_date": "2026-10-17",
+      "program_category": "Maternal Care",
+      "triage_status": "With Doctor",
+      "symptoms": "Routine 2nd Trimester Antenatal Checkup, mild pedal edema",
+      "bp": "142/92",
+      "pulse": 84,
+      "temp": 98.6,
+      "spo2": 99,
+      "diagnosis": "ANC Gestational Week 26 - Mild Gestational Hypertension Risk",
+      "doctor_notes": "Monitored BP elevation. Scheduled weekly review. Advised salt restriction and IFA tablets.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 3,
+      "patient_id": 3,
+      "token_number": 3,
+      "visit_date": "2026-10-17",
+      "program_category": "Immunization",
+      "triage_status": "Pharmacy",
+      "symptoms": "Scheduled 10-week infant immunization visit",
+      "bp": "N/A",
+      "pulse": 110,
+      "temp": 98.4,
+      "spo2": 99,
+      "diagnosis": "Routine National Immunization Schedule - Dose 2",
+      "doctor_notes": "Infant healthy, weight 5.4 kg. Clear for Pentavalent-2 & bOPV-2 administration.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 4,
+      "patient_id": 4,
+      "token_number": 4,
+      "visit_date": "2026-10-17",
+      "program_category": "Disease Prevention",
+      "triage_status": "Checked In",
+      "symptoms": "Chills, joint pain, retro-orbital pain, vomiting for 2 days",
+      "bp": "110/70",
+      "pulse": 94,
+      "temp": 102.8,
+      "spo2": 97,
+      "diagnosis": "Pending Triage - Suspected Vector-Borne Arboviral Illness (Dengue/Chikungunya)",
+      "doctor_notes": "Triage nurse ordered immediate NS1 rapid antigen & platelet count.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 5,
+      "patient_id": 5,
+      "token_number": 5,
+      "visit_date": "2026-10-17",
+      "program_category": "Maternal Care",
+      "triage_status": "Pharmacy",
+      "symptoms": "1st Trimester Registration, severe morning nausea, fatigue",
+      "bp": "118/74",
+      "pulse": 80,
+      "temp": 98.2,
+      "spo2": 99,
+      "diagnosis": "ANC Registration Week 10 - Mild Hyperemesis Gravidarum",
+      "doctor_notes": "Ultrasound confirmed intrauterine pregnancy. Prescribed Doxylamine + Pyridoxine and Folic Acid.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 6,
+      "patient_id": 6,
+      "token_number": 6,
+      "visit_date": "2026-10-17",
+      "program_category": "Outpatient",
+      "triage_status": "With Doctor",
+      "symptoms": "Chronic knee joint pain, morning stiffness, elevated fasting sugars",
+      "bp": "138/86",
+      "pulse": 76,
+      "temp": 98.4,
+      "spo2": 97,
+      "diagnosis": "Type 2 Diabetes Mellitus & Osteoarthritis Bilateral Knees",
+      "doctor_notes": "Adjusted Metformin dosage. Advised physiotherapy exercises and low glycemic diet.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 7,
+      "patient_id": 7,
+      "token_number": 7,
+      "visit_date": "2026-10-17",
+      "program_category": "Immunization",
+      "triage_status": "Completed",
+      "symptoms": "Birth dose vaccination completed (BCG, OPV-0, Hepatitis B birth dose)",
+      "bp": "N/A",
+      "pulse": 124,
+      "temp": 98.6,
+      "spo2": 99,
+      "diagnosis": "Birth Immunization Administered Successfully",
+      "doctor_notes": "Mother given MCP card and scheduled for 6-week immunization visit.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 8,
+      "patient_id": 8,
+      "token_number": 8,
+      "visit_date": "2026-10-17",
+      "program_category": "Disease Prevention",
+      "triage_status": "Completed",
+      "symptoms": "Acute watery diarrhea and dehydration after consuming local borewell water",
+      "bp": "102/68",
+      "pulse": 102,
+      "temp": 99.2,
+      "spo2": 98,
+      "diagnosis": "Acute Water-Borne Gastroenteritis with Moderate Dehydration",
+      "doctor_notes": "Administered 1L IV DNS and ORS. Sanitary inspector notified for water chlorine test in labor settlement.",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 9,
+      "patient_id": 11,
+      "token_number": 9,
+      "visit_date": "2026-10-17",
+      "program_category": "Maternal Care",
+      "triage_status": "With Doctor",
+      "symptoms": "ANC 2nd Trimester routine fetal checkup",
+      "bp": "120/80",
+      "pulse": 78,
+      "temp": 98.6,
+      "spo2": 99,
+      "diagnosis": "Normal ANC Progress",
+      "doctor_notes": "",
+      "created_at": "2026-10-17 14:24:28"
+    },
+    {
+      "id": 10,
+      "patient_id": 12,
+      "token_number": 10,
+      "visit_date": "2026-10-17",
+      "program_category": "Maternal Care",
+      "triage_status": "With Doctor",
+      "symptoms": "ANC 2nd Trimester routine ultrasound",
+      "bp": "",
+      "pulse": null,
+      "temp": null,
+      "spo2": null,
+      "diagnosis": "",
+      "doctor_notes": "",
+      "created_at": "2026-10-17 14:29:28"
+    }
+  ],
+  "program_details": [
+    {
+      "id": 1,
+      "visit_id": 1,
+      "program_category": "Outpatient",
+      "metadata_json": "{\"referral_needed\":false,\"follow_up_days\":3,\"chief_complaint\":\"Fever and myalgia\"}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 2,
+      "visit_id": 2,
+      "program_category": "Maternal Care",
+      "metadata_json": "{\"trimester\":\"2nd Trimester (26 Weeks)\",\"gravida_para\":\"G2 P1 L1\",\"edd\":\"2027-01-23\",\"high_risk\":true,\"risk_factor\":\"Elevated systolic/diastolic BP (142/92 mmHg), mild pedal swelling\",\"hb_level\":\"10.8 g/dL\"}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 3,
+      "visit_id": 3,
+      "program_category": "Immunization",
+      "metadata_json": "{\"vaccine_name\":\"Pentavalent-2 + bOPV-2\",\"dose_number\":\"2nd Dose\",\"child_weight_kg\":5.4,\"next_due_date\":\"2026-11-14\",\"adverse_events_prior\":\"None reported\"}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 4,
+      "visit_id": 4,
+      "program_category": "Disease Prevention",
+      "metadata_json": "{\"disease_group\":\"Vector-Borne Disease Surveillance\",\"suspected_condition\":\"Dengue Fever / Arbovirus\",\"hotspot_cluster\":\"North Village Ward 2 (Cluster of 4 fevers reported)\",\"lab_ordered\":\"NS1 Rapid Antigen & Dengue IgM\",\"notifiable_disease\":true}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 5,
+      "visit_id": 5,
+      "program_category": "Maternal Care",
+      "metadata_json": "{\"trimester\":\"1st Trimester (10 Weeks)\",\"gravida_para\":\"G1 P0\",\"edd\":\"2027-05-15\",\"high_risk\":false,\"hb_level\":\"11.5 g/dL\"}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 6,
+      "visit_id": 6,
+      "program_category": "Outpatient",
+      "metadata_json": "{\"chronic_disease\":true,\"hba1c\":\"7.8%\",\"referral_needed\":false}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 7,
+      "visit_id": 7,
+      "program_category": "Immunization",
+      "metadata_json": "{\"vaccine_name\":\"BCG + bOPV-0 + HepB Birth Dose\",\"dose_number\":\"Birth Dose\",\"child_weight_kg\":3.1,\"next_due_date\":\"2026-11-28\",\"batch_logged\":\"BATCH-OPV-411\"}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 8,
+      "visit_id": 8,
+      "program_category": "Disease Prevention",
+      "metadata_json": "{\"disease_group\":\"Water-Borne Disease Surveillance\",\"suspected_condition\":\"Acute Secretory Diarrheal Outbreak\",\"water_sample_collected\":true,\"notifiable_disease\":true}",
+      "created_at": "2026-10-17 14:16:29"
+    },
+    {
+      "id": 9,
+      "visit_id": 9,
+      "program_category": "Maternal Care",
+      "metadata_json": "{\"trimester\":\"2nd Trimester (24w)\",\"edd\":\"2026-12-15\",\"high_risk\":false}",
+      "created_at": "2026-10-17 14:24:28"
+    },
+    {
+      "id": 10,
+      "visit_id": 10,
+      "program_category": "Maternal Care",
+      "metadata_json": "{\"trimester\":\"2nd Trimester\",\"edd\":\"\",\"high_risk\":false}",
+      "created_at": "2026-10-17 14:29:28"
+    }
+  ],
+  "medicines": [
+    {
+      "id": 1,
+      "code": "MED-101",
+      "name": "Paracetamol 500mg",
+      "category": "Antipyretic",
+      "batch_number": "BATCH-PCM-991",
+      "quantity": 1200,
+      "min_threshold": 200,
+      "unit": "Tablets",
+      "expiry_date": "2027-10-12",
+      "unit_price": 0.5,
+      "last_restocked": "2026-10-17 14:37:58"
+    },
+    {
+      "id": 2,
+      "code": "MED-102",
+      "name": "Amoxicillin 500mg",
+      "category": "Antibiotic",
+      "batch_number": "BATCH-AMX-442",
+      "quantity": 450,
+      "min_threshold": 100,
+      "unit": "Capsules",
+      "expiry_date": "2027-07-24",
+      "unit_price": 3.2,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 3,
+      "code": "MED-103",
+      "name": "ORS (Oral Rehydration Salts)",
+      "category": "Essential Fluids",
+      "batch_number": "BATCH-ORS-118",
+      "quantity": 600,
+      "min_threshold": 150,
+      "unit": "Sachets",
+      "expiry_date": "2027-11-21",
+      "unit_price": 4.5,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 4,
+      "code": "MED-104",
+      "name": "Iron & Folic Acid (IFA)",
+      "category": "Maternal Nutrition",
+      "batch_number": "BATCH-IFA-882",
+      "quantity": 1500,
+      "min_threshold": 300,
+      "unit": "Tablets",
+      "expiry_date": "2027-09-02",
+      "unit_price": 0.8,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 5,
+      "code": "MED-105",
+      "name": "Metformin 500mg",
+      "category": "Chronic / NCD",
+      "batch_number": "BATCH-MET-331",
+      "quantity": 800,
+      "min_threshold": 150,
+      "unit": "Tablets",
+      "expiry_date": "2028-01-10",
+      "unit_price": 1.2,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 6,
+      "code": "MED-106",
+      "name": "Amlodipine 5mg",
+      "category": "Chronic / NCD",
+      "batch_number": "BATCH-AML-772",
+      "quantity": 650,
+      "min_threshold": 120,
+      "unit": "Tablets",
+      "expiry_date": "2028-02-29",
+      "unit_price": 1.1,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 7,
+      "code": "MED-107",
+      "name": "Ciprofloxacin 500mg",
+      "category": "Antibiotic",
+      "batch_number": "BATCH-CIP-201",
+      "quantity": 0,
+      "min_threshold": 50,
+      "unit": "Tablets",
+      "expiry_date": "2027-04-15",
+      "unit_price": 4,
+      "last_restocked": "2026-10-17 14:32:56"
+    },
+    {
+      "id": 8,
+      "code": "MED-108",
+      "name": "Dextrose Normal Saline (DNS 500ml)",
+      "category": "IV Fluid",
+      "batch_number": "BATCH-DNS-009",
+      "quantity": 6,
+      "min_threshold": 25,
+      "unit": "Bottles",
+      "expiry_date": "2027-04-25",
+      "unit_price": 32,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 9,
+      "code": "MED-109",
+      "name": "Cetirizine 10mg",
+      "category": "Antihistamine",
+      "batch_number": "BATCH-CET-551",
+      "quantity": 14,
+      "min_threshold": 60,
+      "unit": "Tablets",
+      "expiry_date": "2027-06-14",
+      "unit_price": 1.5,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 10,
+      "code": "MED-110",
+      "name": "Anti-Rabies Vaccine (ARV 0.5ml)",
+      "category": "Vaccine",
+      "batch_number": "BATCH-ARV-901",
+      "quantity": 35,
+      "min_threshold": 10,
+      "unit": "Vials",
+      "expiry_date": "2026-11-08",
+      "unit_price": 350,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 11,
+      "code": "MED-111",
+      "name": "Tetanus Toxoid (TT 0.5ml)",
+      "category": "Vaccine",
+      "batch_number": "BATCH-TT-312",
+      "quantity": 40,
+      "min_threshold": 15,
+      "unit": "Ampoules",
+      "expiry_date": "2026-11-24",
+      "unit_price": 18,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 12,
+      "code": "MED-112",
+      "name": "Artemether + Lumefantrine",
+      "category": "Antimalarial",
+      "batch_number": "BATCH-ACT-702",
+      "quantity": 12,
+      "min_threshold": 20,
+      "unit": "Strips",
+      "expiry_date": "2026-12-01",
+      "unit_price": 65,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 13,
+      "code": "MED-113",
+      "name": "Azithromycin 500mg",
+      "category": "Antibiotic",
+      "batch_number": "BATCH-AZI-600",
+      "quantity": 0,
+      "min_threshold": 40,
+      "unit": "Tablets",
+      "expiry_date": "2027-05-05",
+      "unit_price": 12,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 14,
+      "code": "MED-114",
+      "name": "Pentavalent Vaccine (DPT+HepB+Hib)",
+      "category": "Vaccine",
+      "batch_number": "BATCH-PNT-881",
+      "quantity": 85,
+      "min_threshold": 20,
+      "unit": "Vials",
+      "expiry_date": "2027-08-13",
+      "unit_price": 120,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 15,
+      "code": "MED-115",
+      "name": "Oral Polio Vaccine (bOPV)",
+      "category": "Vaccine",
+      "batch_number": "BATCH-OPV-411",
+      "quantity": 120,
+      "min_threshold": 30,
+      "unit": "Vials",
+      "expiry_date": "2027-06-14",
+      "unit_price": 45,
+      "last_restocked": "2026-10-17"
+    },
+    {
+      "id": 16,
+      "code": "MED-116",
+      "name": "Measles-Rubella (MR) Vaccine",
+      "category": "Vaccine",
+      "batch_number": "BATCH-MR-229",
+      "quantity": 70,
+      "min_threshold": 20,
+      "unit": "Vials",
+      "expiry_date": "2027-05-15",
+      "unit_price": 95,
+      "last_restocked": "2026-10-17"
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": 1,
+      "visit_id": 1,
+      "medicine_id": 1,
+      "dosage": "1 tablet thrice daily after food",
+      "duration_days": 3,
+      "quantity_prescribed": 9,
+      "dispensed": 1,
+      "dispensed_at": "2026-10-17T14:16:29.484Z"
+    },
+    {
+      "id": 2,
+      "visit_id": 1,
+      "medicine_id": 3,
+      "dosage": "1 sachet dissolved in 1L water",
+      "duration_days": 2,
+      "quantity_prescribed": 2,
+      "dispensed": 1,
+      "dispensed_at": "2026-10-17T14:16:29.484Z"
+    },
+    {
+      "id": 3,
+      "visit_id": 3,
+      "medicine_id": 14,
+      "dosage": "0.5ml IM single dose",
+      "duration_days": 1,
+      "quantity_prescribed": 1,
+      "dispensed": 0,
+      "dispensed_at": null
+    },
+    {
+      "id": 4,
+      "visit_id": 3,
+      "medicine_id": 15,
+      "dosage": "2 drops oral",
+      "duration_days": 1,
+      "quantity_prescribed": 1,
+      "dispensed": 0,
+      "dispensed_at": null
+    },
+    {
+      "id": 5,
+      "visit_id": 5,
+      "medicine_id": 4,
+      "dosage": "1 tablet daily after lunch",
+      "duration_days": 30,
+      "quantity_prescribed": 30,
+      "dispensed": 0,
+      "dispensed_at": null
+    },
+    {
+      "id": 6,
+      "visit_id": 8,
+      "medicine_id": 3,
+      "dosage": "2 sachets daily with water",
+      "duration_days": 3,
+      "quantity_prescribed": 6,
+      "dispensed": 1,
+      "dispensed_at": "2026-10-17T14:16:29.484Z"
+    }
+  ],
+  "staff": [
+    {
+      "id": 1,
+      "staff_code": "STF-001",
+      "name": "Dr. Rajesh Sharma, MBBS, MD",
+      "role": "Medical Officer",
+      "contact": "+91 98765 43210",
+      "email": "dr.rajesh@phc.gov.in",
+      "qualifications": "MBBS, MD (Community Medicine)",
+      "is_active": 1
+    },
+    {
+      "id": 2,
+      "staff_code": "STF-002",
+      "name": "Dr. Meenakshi Sundaram, MBBS",
+      "role": "Assistant Medical Officer",
+      "contact": "+91 98765 43211",
+      "email": "dr.meenakshi@phc.gov.in",
+      "qualifications": "MBBS, DGO",
+      "is_active": 1
+    },
+    {
+      "id": 3,
+      "staff_code": "STF-003",
+      "name": "Priya Nair, B.Sc Nursing",
+      "role": "Senior Staff Nurse",
+      "contact": "+91 98765 43212",
+      "email": "priya.n@phc.gov.in",
+      "qualifications": "B.Sc Nursing, Critical Care Cert",
+      "is_active": 1
+    },
+    {
+      "id": 4,
+      "staff_code": "STF-004",
+      "name": "K. Venkatesh, D.Pharm",
+      "role": "Head Pharmacist",
+      "contact": "+91 98765 43213",
+      "email": "venkatesh.k@phc.gov.in",
+      "qualifications": "D.Pharm, 12 yrs exp",
+      "is_active": 1
+    },
+    {
+      "id": 5,
+      "staff_code": "STF-005",
+      "name": "Ananya Roy, DMLT",
+      "role": "Laboratory Technician",
+      "contact": "+91 98765 43214",
+      "email": "ananya.roy@phc.gov.in",
+      "qualifications": "B.Sc MLT",
+      "is_active": 1
+    },
+    {
+      "id": 6,
+      "staff_code": "STF-006",
+      "name": "Sunita Devi",
+      "role": "Auxiliary Nurse Midwife (ANM)",
+      "contact": "+91 98765 43215",
+      "email": "sunita.anm@phc.gov.in",
+      "qualifications": "Diploma in Nursing Midwifery",
+      "is_active": 1
+    },
+    {
+      "id": 7,
+      "staff_code": "STF-007",
+      "name": "Mohan Kumar",
+      "role": "Health Inspector / Epidemiologist",
+      "contact": "+91 98765 43216",
+      "email": "mohan.hi@phc.gov.in",
+      "qualifications": "Diploma in Sanitary Health",
+      "is_active": 1
+    },
+    {
+      "id": 8,
+      "staff_code": "STF-008",
+      "name": "Lakshmi Bai",
+      "role": "Senior ASHA Coordinator",
+      "contact": "+91 98765 43217",
+      "email": "lakshmi.asha@phc.gov.in",
+      "qualifications": "Certified Community Health Facilitator",
+      "is_active": 1
+    }
+  ],
+  "duty_roster": [
+    {
+      "id": 1,
+      "staff_id": 1,
+      "shift_date": "2026-10-17",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "OPD Consultations & In-Charge"
+    },
+    {
+      "id": 2,
+      "staff_id": 2,
+      "shift_date": "2026-10-17",
+      "shift_type": "Evening (14:00 - 20:00)",
+      "duty_status": "On Duty",
+      "notes": "Maternal Clinic & General OPD"
+    },
+    {
+      "id": 3,
+      "staff_id": 3,
+      "shift_date": "2026-10-17",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "Triage & Immunization Room"
+    },
+    {
+      "id": 4,
+      "staff_id": 4,
+      "shift_date": "2026-10-17",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "Pharmacy Counter & Inventory Check"
+    },
+    {
+      "id": 5,
+      "staff_id": 5,
+      "shift_date": "2026-10-17",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "Pathology Lab: Blood & Urine Tests"
+    },
+    {
+      "id": 6,
+      "staff_id": 6,
+      "shift_date": "2026-10-17",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "Field Visit & Home Postnatal Checks"
+    },
+    {
+      "id": 7,
+      "staff_id": 7,
+      "shift_date": "2026-10-17",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "Vector-Borne Disease Fogging Review"
+    },
+    {
+      "id": 8,
+      "staff_id": 1,
+      "shift_date": "2026-10-17",
+      "shift_type": "Night (20:00 - 08:00)",
+      "duty_status": "Emergency On-Call",
+      "notes": "Emergency Response Contact"
+    },
+    {
+      "id": 9,
+      "staff_id": 3,
+      "shift_date": "2026-10-17",
+      "shift_type": "Night (20:00 - 08:00)",
+      "duty_status": "Off Duty",
+      "notes": "Rest cycle after morning shift"
+    },
+    {
+      "id": 10,
+      "staff_id": 2,
+      "shift_date": "2026-10-18",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "Scheduled Morning Shift"
+    },
+    {
+      "id": 11,
+      "staff_id": 4,
+      "shift_date": "2026-10-18",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": "Scheduled Pharmacy Shift"
+    }
+  ]
+}
