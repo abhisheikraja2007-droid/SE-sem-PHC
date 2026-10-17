@@ -13,6 +13,13 @@ const staffRoutes = require('./src/routes/staffRoutes');
 
 const fs = require('fs');
 
+process.on('uncaughtException', (err) => {
+  console.error('CRITICAL UNCAUGHT EXCEPTION:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('CRITICAL UNHANDLED REJECTION:', reason);
+});
+
 const DATA_FILE = path.join(__dirname, 'data.json');
 
 // Restore state from data.json if SQLite database is empty on server startup
