@@ -1,6 +1,6 @@
 {
   "facility": "PHC Ramapuram Health Complex (PHC-TN-402)",
-  "last_persisted": "2026-10-17T14:45:41.178Z",
+  "last_persisted": "2026-10-21T05:20:27.692Z",
   "patients": [
     {
       "id": 1,
@@ -121,6 +121,26 @@
       "contact": "N/A",
       "address": "Local Village",
       "created_at": "2026-10-17 14:29:28"
+    },
+    {
+      "id": 13,
+      "uhid": "PHC-2026-013",
+      "full_name": "Abhisheik Raja ST",
+      "age": 20,
+      "gender": "Male",
+      "contact": "8903450031",
+      "address": "Gandhi ",
+      "created_at": "2026-10-21 03:46:56"
+    },
+    {
+      "id": 14,
+      "uhid": "PHC-2026-014",
+      "full_name": "bhj",
+      "age": 8,
+      "gender": "Male",
+      "contact": "98-098-08890",
+      "address": "ghvgh",
+      "created_at": "2026-10-21 05:19:49"
     }
   ],
   "visits": [
@@ -146,7 +166,7 @@
       "token_number": 2,
       "visit_date": "2026-10-17",
       "program_category": "Maternal Care",
-      "triage_status": "With Doctor",
+      "triage_status": "Completed",
       "symptoms": "Routine 2nd Trimester Antenatal Checkup, mild pedal edema",
       "bp": "142/92",
       "pulse": 84,
@@ -283,6 +303,38 @@
       "diagnosis": "",
       "doctor_notes": "",
       "created_at": "2026-10-17 14:29:28"
+    },
+    {
+      "id": 11,
+      "patient_id": 13,
+      "token_number": 1,
+      "visit_date": "2026-10-21",
+      "program_category": "Outpatient",
+      "triage_status": "Completed",
+      "symptoms": "Fever,cold",
+      "bp": "90",
+      "pulse": 90,
+      "temp": 90,
+      "spo2": 90,
+      "diagnosis": "",
+      "doctor_notes": "",
+      "created_at": "2026-10-21 03:46:56"
+    },
+    {
+      "id": 12,
+      "patient_id": 14,
+      "token_number": 2,
+      "visit_date": "2026-10-21",
+      "program_category": "Outpatient",
+      "triage_status": "Checked In",
+      "symptoms": "nb",
+      "bp": "",
+      "pulse": null,
+      "temp": null,
+      "spo2": null,
+      "diagnosis": "",
+      "doctor_notes": "",
+      "created_at": "2026-10-21 05:19:49"
     }
   ],
   "program_details": [
@@ -355,6 +407,20 @@
       "program_category": "Maternal Care",
       "metadata_json": "{\"trimester\":\"2nd Trimester\",\"edd\":\"\",\"high_risk\":false}",
       "created_at": "2026-10-17 14:29:28"
+    },
+    {
+      "id": 11,
+      "visit_id": 11,
+      "program_category": "Outpatient",
+      "metadata_json": "{}",
+      "created_at": "2026-10-21 03:46:56"
+    },
+    {
+      "id": 12,
+      "visit_id": 12,
+      "program_category": "Outpatient",
+      "metadata_json": "{}",
+      "created_at": "2026-10-21 05:19:49"
     }
   ],
   "medicines": [
@@ -434,7 +500,7 @@
       "unit": "Tablets",
       "expiry_date": "2028-02-29",
       "unit_price": 1.1,
-      "last_restocked": "2026-10-17"
+      "last_restocked": "2026-10-21 03:47:16"
     },
     {
       "id": 7,
@@ -799,6 +865,22 @@
       "shift_type": "Morning (08:00 - 14:00)",
       "duty_status": "On Duty",
       "notes": "Scheduled Pharmacy Shift"
+    },
+    {
+      "id": 12,
+      "staff_id": 1,
+      "shift_date": "2026-10-21",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": ""
+    },
+    {
+      "id": 13,
+      "staff_id": 1,
+      "shift_date": "2026-10-21",
+      "shift_type": "Morning (08:00 - 14:00)",
+      "duty_status": "On Duty",
+      "notes": ""
     }
   ]
 }
